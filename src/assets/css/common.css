@@ -18,9 +18,19 @@ html, body {
     display: flex;
     justify-content: space-between;
 }
+.vertical-between{
+    flex-direction: column;
+    display: flex;
+    justify-content: space-between;
+}
 .horizontal-left{
     display: flex;
     justify-content: flex-start;
+}
+.horizontal-left-wrap{
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
 }
 .horizontal-right{
     display: flex;

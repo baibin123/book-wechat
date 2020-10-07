@@ -1,12 +1,11 @@
 import axios from 'axios';
 import ElementUI from 'element-ui';
-import VueCookie from 'vue-cookie';
 
 const instance = axios.create({ timeout: 1000 * 12});
 //拦截request
 instance.interceptors.request.use(
     config => {
-        const token = VueCookie.get('auth-token');
+        const token = '';
         token && (config.headers['auth-token'] = token);
         return config;
     },
@@ -17,7 +16,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
     // 请求成功
     res => {
-        if (res.data.errno !== 0) ElementUI.Message({
+        if (res.data.code !== 200) ElementUI.Message({
             message: res.data.message,
             type: "warning",
         });
@@ -79,6 +78,9 @@ const errorHandle = (status, other) => {
 export default {
     POST(url, params= {}) {
         return instance.post(`${process.env.VUE_APP_URL}${url}`, params);
+    },
+    GET(url) {
+        return instance.get(`${process.env.VUE_APP_URL}${url}`);
     }
 }
 

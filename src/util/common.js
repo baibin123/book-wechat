@@ -1,28 +1,3 @@
-import CryptoJS from 'crypto-js';
-
-export const aesEncryptModeCFB = function (msg, pwd) {
-    let magicNo = generateRandomAlphaNum(32);
-
-    let key = CryptoJS.enc.Utf8.parse(CryptoJS.MD5(pwd).toString());
-    let iv = CryptoJS.enc.Utf8.parse(magicNo);
-
-    let identifyCode = CryptoJS.AES.encrypt(msg, key, {
-        iv: iv,
-        mode: CryptoJS.mode.CBC,
-        padding: CryptoJS.pad.Pkcs7
-    }).toString();
-    return [magicNo, identifyCode]
-};
-
-const generateRandomAlphaNum = function (len) {
-    let rdmString = '';
-    // toSting接受的参数表示进制，默认为10进制。36进制为0-9 a-z
-    for (; rdmString.length < len;) {
-        rdmString += Math.random().toString(16).substr(2)
-    }
-    return rdmString.substr(0, len)
-};
-
 export const getUserInfo = () => {
     const user = localStorage.getItem('user');
     if (user) return JSON.parse(user);
@@ -34,6 +9,33 @@ export const isMobile = () => {
         return true
     }
     return  false;
+};
+
+export const tranformGetParmas = (obj) => {
+    let params = '';
+    for (const key in obj) {
+        if (obj[key]) {
+            if (params.length === 0) {
+                params = `?${key}=${obj[key]}`;
+            } else {
+                params = `${params}&${key}=${obj[key]}`;
+            }
+        }
+    }
+    return params;
+};
+
+export const debounceFun = (fn, delay = 500) => {
+    let timer = null;
+    return () => {
+        if (timer) {
+            clearTimeout(timer);
+            timer = null;
+        }
+        setTimeout(()=> {
+            fn.apply(this, arguments);
+        }, delay);
+    }
 };
 
 
