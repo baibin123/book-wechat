@@ -17,6 +17,7 @@
   import http from "../util/http";
   import BookItem from '../components/home/BookItem';
   import { tranformGetParmas, debounceFun } from "../util/common";
+  import { getCode } from "../util/wx_util";
   import { store } from "../util/simple_store";
 
   export default {
@@ -31,6 +32,8 @@
     },
     created: function() {
       this.getBook();
+      //微信获取code
+      getCode();
     },
     methods: {
       getBook: function () {
@@ -51,8 +54,9 @@
       },
       clickItem: function (item) {
         store.setBookDetailAction({...item});
+        localStorage.setItem('bookDetail', JSON.stringify(item));
         this.$router.push('/detail');
-      }
+      },
     }
   };
 </script>

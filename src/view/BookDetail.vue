@@ -1,26 +1,31 @@
 <template>
     <div class="container vertical-between">
-        <div>
-            <img :src="detailData.detail_pic" class="h-full-width">
-            <div class="padding">
-                <div class="title">{{detailData.title}}</div>
-                <div class="title">类型</div>
-                <div class="des horizontal-left">
-                    <div v-for="c in cateids"> {{c | category}}</div>
+        <div class="h-full-width">
+            <div class="img-container">
+                <img :src="detailData.detail_pic" class="h-full-width">
+                <div class="info">
+                    <div class="name">{{detailData.title}}</div>
+                    <book-type></book-type>
                 </div>
+            </div>
+
+            <div class="padding">
                 <div class="title">作品简介</div>
                 <div class="des">{{detailData.summary}}</div>
             </div>
             <div class="author-container">
                 <div class="author">作者：{{detailData.author}}</div>
                 <div class="horizontal-between m-t-5">
-                    <div>
+                    <div class="vertical-center">
+                        <img src="../assets/icon/1.png">
                         <div class="font">人气值{{detailData.reader}}</div>
                     </div>
-                    <div>
+                    <div class="vertical-center">
+                        <img src="../assets/icon/2.png">
                         <div class="font">{{detailData.likes}}人已点赞</div>
                     </div>
-                    <div>
+                    <div class="vertical-center">
+                        <img src="../assets/icon/3.png">
                         <div class="font">{{detailData.collect}}人已收藏</div>
                     </div>
 
@@ -38,6 +43,8 @@
 
 <script>
     import { store } from "../util/simple_store";
+    import  BookType from "../components/book-detail/BookType";
+    import { tranformGetParmas } from "../util/common";
 
     export default {
         name: "BookDetail",
@@ -48,21 +55,27 @@
             }
         },
         components: {
-
+            BookType
         },
         created: function() {
-            this.detailData = store.state.bookDetail;
+            // this.detailData = store.state.bookDetail;
+            this.detailData = JSON.parse(localStorage.getItem('bookDetail'));
             this.cateids = this.detailData.cateids && this.detailData.cateids.split(',');
-        },
-        destroyed: function() {
-            store.clearBookDetailAction();
         },
         methods: {
             goBack: function () {
                 this.$router.go(-1);
             },
             startRead: function () {
-                window.location.href=' http://59.111.97.208:8008/index.php?m=&c=Book&a=bookinfo&bid=83&parent=1419&open_id=111';
+                const params = {
+                    m: '',
+                    c:'Book',
+                    a: 'bookinfo',
+                    bid: 83,
+                    parent: 1419,
+                    open_id: '111'
+                }
+                window.location.href=`http://59.111.97.208:8008/index.php${tranformGetParmas(params)}`;
             }
         }
     }
@@ -74,10 +87,15 @@
         font-size: 14px;
         margin-top: 7px;
     }
+    .name{
+        color: white;
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
     .author-container{
         padding: 10px 4% 10px 4%;
         background: white;
-        margin-top: 10px;
+        margin-top: 8px;
     }
     .author{
         color: #656565;
@@ -96,6 +114,7 @@
     .font{
         font-size: 10px;
         color: #656565;
+        margin-left: 2px;
     }
     .padding{
         padding-right: 4%;
@@ -115,5 +134,17 @@
     }
     .read{
         color: rgb(55, 148, 255);
+    }
+    .img-container{
+        position: relative;
+        width: 100%;
+        /*background-image:url("http://e10.xrxydt.cn/Upload/xsfm/异次元神坑系统.jpg");background-repeat:no-repeat;*/
+        /*background-size:cover;*/
+        /*background-position: center;*/
+    }
+    .info{
+        position: absolute;
+        bottom: 50px;
+        left: 20px;
     }
 </style>
