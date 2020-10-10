@@ -44,12 +44,12 @@ module.exports = {
         proxy: {
             //配置跨域
             '/api': {
-                target: "http://59.111.97.208:8008",
+                target: "http://localhost:8888",
                 ws:true,
                 changOrigin:true,
-                pathRewrite:{
-                    '^/api':''
-                }
+                // pathRewrite:{
+                //     '^/api':''
+                // }
             }
         }
     }

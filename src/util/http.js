@@ -16,10 +16,10 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
     // 请求成功
     res => {
-        if (res.data.code !== 200) ElementUI.Message({
-            message: res.data.message,
-            type: "warning",
-        });
+        // if (res.data.code !== 200) ElementUI.Message({
+        //     message: res.data.message,
+        //     type: "warning",
+        // });
         return res;
     },
     // 请求失败

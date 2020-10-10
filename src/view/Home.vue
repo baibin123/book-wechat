@@ -9,6 +9,9 @@
                  @clickItem="clickItem(item)"
       ></book-item>
     </div>
+    <div v-if="bookData.length === 0" class="horizontal-center tint">
+      请扫描二维码进入公众号
+    </div>
   </div>
 </template>
 
@@ -24,33 +27,69 @@
     data() {
       return {
         search_text: null,
-        bookData: null,
+        bookData: [],
       }
     },
     components: {
       BookItem
     },
     created: function() {
-      this.getBook();
-      //微信获取code
-      getCode();
+      const openId = localStorage.getItem('openId');
+      if (openId) {
+        this.getUserInfo(openId);
+      } else {
+        this.getOpenId();
+      }
     },
     methods: {
-      getBook: function () {
+      getOpenId() {
+        const code = this.$route.query.code;
+        console.log('*******', code);
+        if (code) {
+          http.POST(`/getTokenAndOpenId`,{code}).then((res) => {
+            console.log(`***********获取openId`,res);
+            const openId = res.data.openid;
+            const access_toekn = res.data.access_toekn;
+            localStorage.setItem('openId', openId);
+            this.getUserInfo(openId);
+          });
+        } else {
+          //微信获取code
+          getCode();
+        }
+      },
+      getUserInfo(open_id) {
+        http.POST(`/getUserId`,{open_id}).then((res) => {
+          if (res.data.errno === 0) {
+            const user_id = res.data.user_id;
+            const member_id = res.data.member_id;
+            this.getBook(member_id);
+            localStorage.setItem('userId', user_id);
+          }
+        });
+      },
+      getBook: function (member_id) {
         const params = {
           m: 'ApiCommon',
           c: 'ApiCommon',
           a: 'getBookList',
-          member_id: 24,
+          member_id: member_id,
           title: this.search_text
         };
-        http.GET(`/api.php${tranformGetParmas(params)}`).then((res) => {
+        http.POST(`/getBook`,{url: `http://59.111.97.208:8008/api.php${tranformGetParmas(params)}`}).then((res) => {
           if(res.data.code === 200) {
             if (res.data.data && res.data.data.length > 0) {
               this.bookData = res.data.data[0].list;
             }
           }
         });
+        // http.GET(`/api.php${tranformGetParmas(params)}`).then((res) => {
+        //   if(res.data.code === 200) {
+        //     if (res.data.data && res.data.data.length > 0) {
+        //       this.bookData = res.data.data[0].list;
+        //     }
+        //   }
+        // });
       },
       clickItem: function (item) {
         store.setBookDetailAction({...item});
@@ -71,6 +110,11 @@
     margin-left: 4%;
     width: 92%;
     margin-top: 3%;
+  }
+  .tint{
+    font-size: 14px;
+    color: #656565;
+    margin-top: 100px;
   }
 
 </style>

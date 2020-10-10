@@ -38,7 +38,7 @@
         </div>
 
     </div>
-    
+
 </template>
 
 <script>
@@ -67,15 +67,18 @@
                 this.$router.go(-1);
             },
             startRead: function () {
+                const open_id = localStorage.getItem('openId');
+                const user_id = localStorage.getItem('userId');
                 const params = {
                     m: '',
                     c:'Book',
                     a: 'bookinfo',
-                    bid: 83,
-                    parent: 1419,
-                    open_id: '111'
-                }
-                window.location.href=`http://59.111.97.208:8008/index.php${tranformGetParmas(params)}`;
+                    bid: this.detailData.id,
+                    parent: user_id,
+                    open_id: open_id
+                };
+                console.log('参数：',params);
+                window.location.href=`http://book.truckloud.com/index.php${tranformGetParmas(params)}`;
             }
         }
     }
