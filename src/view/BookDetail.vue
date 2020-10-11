@@ -67,7 +67,7 @@
                 this.$router.go(-1);
             },
             startRead: function () {
-                this.$router.push({name:`/BookWeb`, query: {id: this.detailData.id}});
+                this.$router.push({name:`BookWeb`, query: {id: this.detailData.id}});
                 // const open_id = localStorage.getItem('openId');
                 // const user_id = localStorage.getItem('userId');
                 // const params = {
