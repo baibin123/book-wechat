@@ -42,9 +42,9 @@
 </template>
 
 <script>
-    import { store } from "../util/simple_store";
     import  BookType from "../components/book-detail/BookType";
     import { tranformGetParmas } from "../util/common";
+    import { goThirdWeb } from "../util/wx_util";
 
     export default {
         name: "BookDetail",
@@ -67,19 +67,20 @@
                 this.$router.go(-1);
             },
             startRead: function () {
-                this.$router.push({name:`BookWeb`, query: {id: this.detailData.id}});
-                // const open_id = localStorage.getItem('openId');
-                // const user_id = localStorage.getItem('userId');
-                // const params = {
-                //     m: '',
-                //     c:'Book',
-                //     a: 'bookinfo',
-                //     bid: this.detailData.id,
-                //     parent: user_id,
-                //     open_id: open_id
-                // };
-                // console.log('参数：',params);
-                // // window.location.href=`http://book.truckloud.com/index.php${tranformGetParmas(params)}`;
+                // this.$router.push({name:`BookWeb`, query: {id: this.detailData.id}});
+                const open_id = localStorage.getItem('openId');
+                const user_id = localStorage.getItem('userId');
+                const params = {
+                    m: '',
+                    c:'Book',
+                    a: 'bookinfo',
+                    bid: this.detailData.id,
+                    parent: user_id,
+                    open_id: open_id
+                };
+                console.log('参数：',params);
+                const url = encodeURIComponent(`http://book.truckloud.com/index.php${tranformGetParmas(params)}`);
+                goThirdWeb(url);
                 // window.location.href=`http://book.truckloud.com/index.php`;
             }
         }

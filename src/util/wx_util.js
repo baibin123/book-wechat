@@ -14,3 +14,8 @@ export const getCode = () => {
     //         console.log('微信返回结果',res);
     //     });
 };
+
+export const goThirdWeb = (redirect_url) => {
+    const url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APPID}&redirect_uri=${redirect_url}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect`;
+    window.location.href = url
+};
