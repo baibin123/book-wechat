@@ -81,7 +81,7 @@
                 console.log('参数：',params);
                 // const url = encodeURIComponent(`http://book.truckloud.com/index.php${tranformGetParmas(params)}`);
                 // goThirdWeb(url);
-                window.location.href=`https://www.baidu.com`;
+                window.location.href=`https://www.baibin.top`;
             }
         }
     }
