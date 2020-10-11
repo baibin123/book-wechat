@@ -79,9 +79,10 @@
                     open_id: open_id
                 };
                 console.log('参数：',params);
-                // const url = encodeURIComponent(`http://book.truckloud.com/index.php${tranformGetParmas(params)}`);
+                const url = `http://book.truckloud.com/index.php${tranformGetParmas(params)}`;
+                window.location.href = url;
                 // goThirdWeb(url);
-                window.location.href=`http://www.baibin.top`;
+                // window.location.href=`http://www.baibin.top`;
             }
         }
     }
