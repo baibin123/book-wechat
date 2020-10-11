@@ -78,7 +78,8 @@
                     open_id: open_id
                 };
                 console.log('参数：',params);
-                window.location.href=`http://book.truckloud.com/index.php${tranformGetParmas(params)}`;
+                // window.location.href=`http://book.truckloud.com/index.php${tranformGetParmas(params)}`;
+                window.location.href=`http://book.truckloud.com/index.php`;
             }
         }
     }
