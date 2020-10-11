@@ -67,19 +67,20 @@
                 this.$router.go(-1);
             },
             startRead: function () {
-                const open_id = localStorage.getItem('openId');
-                const user_id = localStorage.getItem('userId');
-                const params = {
-                    m: '',
-                    c:'Book',
-                    a: 'bookinfo',
-                    bid: this.detailData.id,
-                    parent: user_id,
-                    open_id: open_id
-                };
-                console.log('参数：',params);
-                // window.location.href=`http://book.truckloud.com/index.php${tranformGetParmas(params)}`;
-                window.location.href=`http://book.truckloud.com/index.php`;
+                this.$router.push({name:`/BookWeb`, query: {id: this.detailData.id}});
+                // const open_id = localStorage.getItem('openId');
+                // const user_id = localStorage.getItem('userId');
+                // const params = {
+                //     m: '',
+                //     c:'Book',
+                //     a: 'bookinfo',
+                //     bid: this.detailData.id,
+                //     parent: user_id,
+                //     open_id: open_id
+                // };
+                // console.log('参数：',params);
+                // // window.location.href=`http://book.truckloud.com/index.php${tranformGetParmas(params)}`;
+                // window.location.href=`http://book.truckloud.com/index.php`;
             }
         }
     }
