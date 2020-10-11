@@ -79,9 +79,9 @@
                     open_id: open_id
                 };
                 console.log('参数：',params);
-                const url = encodeURIComponent(`http://book.truckloud.com/index.php${tranformGetParmas(params)}`);
-                goThirdWeb(url);
-                // window.location.href=`http://book.truckloud.com/index.php`;
+                // const url = encodeURIComponent(`http://book.truckloud.com/index.php${tranformGetParmas(params)}`);
+                // goThirdWeb(url);
+                window.location.href=`www.baidu.com`;
             }
         }
     }
