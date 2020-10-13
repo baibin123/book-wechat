@@ -1,6 +1,6 @@
 <template>
   <div class="full-width">
-    <el-input v-model="search_text" placeholder="请输入作品名称v1.0.1" class="search-ipt" @input="getBook"></el-input>
+    <el-input v-model="search_text" placeholder="请输入作品名称" class="search-ipt" @input="getBook"></el-input>
     <div class="horizontal-left-wrap h-full-width">
       <book-item v-for="(item) in bookData"
                  :key="item.id"
