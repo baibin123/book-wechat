@@ -79,8 +79,9 @@
                     open_id: open_id
                 };
                 console.log('参数：',params);
-                const url = `http://book.truckloud.com/index.php${tranformGetParmas(params)}`;
-                window.location.href = `https://www.baibin.top`;
+                const url = `http://book.flyhighus.com/index.php${tranformGetParmas(params)}`;
+                console.log('跳转链接:', url);
+                window.location.href = url;
                 // goThirdWeb(url);
                 // window.location.href=`http://www.baibin.top`;
             }
