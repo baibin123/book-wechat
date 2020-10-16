@@ -79,7 +79,7 @@
           c: 'ApiCommon',
           a: 'getBookList',
           member_id: this.member_id,
-          title: encodeURI(this.search_text)
+          title: this.search_text ? encodeURI(this.search_text) : ''
         };
         console.log(params);
         console.log(tranformGetParmas(params));
