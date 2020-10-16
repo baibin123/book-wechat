@@ -70,14 +70,29 @@
                 // this.$router.push({name:`BookWeb`, query: {id: this.detailData.id}});
                 const open_id = localStorage.getItem('openId');
                 const user_id = localStorage.getItem('userId');
-                const params = {
-                    m: '',
-                    c:'Book',
-                    a: 'bookinfo',
-                    bid: this.detailData.id,
-                    parent: user_id,
-                    open_id: open_id
-                };
+                let params = {};
+                if (this.detailData.flag === 1){
+                    //小说
+                    params = {
+                        m: '',
+                        c:'Book',
+                        a: 'bookinfo',
+                        bid: this.detailData.id,
+                        parent: user_id,
+                        open_id: open_id
+                    };
+                } else if (this.detailData.flag === 2) {
+                    //漫画
+                    params = {
+                        m: '',
+                        c:'Mh',
+                        a: 'bookinfo',
+                        mhid: this.detailData.id,
+                        parent: user_id,
+                        open_id: open_id
+                    };
+                }
+
                 console.log('参数：',params);
                 const url = `http://book.truckloud.com/index.php${tranformGetParmas(params)}`;
                 console.log('跳转链接:', url);

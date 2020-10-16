@@ -69,13 +69,19 @@
         });
       },
       getBook: function (member_id) {
+        if (!member_id) {
+          this.bookData = [];
+          return
+        }
         const params = {
           m: 'ApiCommon',
           c: 'ApiCommon',
           a: 'getBookList',
           member_id: member_id,
-          title: this.search_text
+          title: encodeURI(this.search_text)
         };
+        console.log(params);
+        console.log(tranformGetParmas(params));
         http.POST(`/getBook`,{url: `http://59.111.97.208:8008/api.php${tranformGetParmas(params)}`}).then((res) => {
           if(res.data.code === 200) {
             if (res.data.data && res.data.data.length > 0) {
