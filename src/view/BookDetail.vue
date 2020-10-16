@@ -71,7 +71,7 @@
                 const open_id = localStorage.getItem('openId');
                 const user_id = localStorage.getItem('userId');
                 let params = {};
-                if (this.detailData.flag === 1){
+                if (this.detailData.flag === '1'){
                     //小说
                     params = {
                         m: '',
@@ -81,7 +81,7 @@
                         parent: user_id,
                         open_id: open_id
                     };
-                } else if (this.detailData.flag === 2) {
+                } else if (this.detailData.flag === '2') {
                     //漫画
                     params = {
                         m: '',
