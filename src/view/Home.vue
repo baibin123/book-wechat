@@ -28,6 +28,7 @@
       return {
         search_text: null,
         bookData: [],
+        member_id: null,
       }
     },
     components: {
@@ -62,14 +63,14 @@
         http.POST(`/getUserId`,{open_id}).then((res) => {
           if (res.data.errno === 0) {
             const user_id = res.data.user_id;
-            const member_id = res.data.member_id;
-            this.getBook(member_id);
+            this.member_id = res.data.member_id;
+            this.getBook();
             localStorage.setItem('userId', user_id);
           }
         });
       },
-      getBook: function (member_id) {
-        if (!member_id) {
+      getBook: function () {
+        if (!this.member_id) {
           this.bookData = [];
           return
         }
@@ -77,7 +78,7 @@
           m: 'ApiCommon',
           c: 'ApiCommon',
           a: 'getBookList',
-          member_id: member_id,
+          member_id: this.member_id,
           title: encodeURI(this.search_text)
         };
         console.log(params);
